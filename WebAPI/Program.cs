@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using WebAPI.Data;
+
 namespace WebAPI
 {
     public class Program
@@ -5,6 +8,14 @@ namespace WebAPI
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+
+            var mariaDbVersion = new MySqlServerVersion(new Version(5, 7));
+
+            builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
+            {
+                options.UseMySql($"server={Environment.GetEnvironmentVariable("MARIADB_BASE_ADDRESS")};port=3306;user=root;password={Environment.GetEnvironmentVariable("MARIADB_ROOT_PASSWORD")};database={Environment.GetEnvironmentVariable("MARIADB_DATABASE")}", mariaDbVersion);
+            });
 
             // Add services to the container.
 

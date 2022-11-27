@@ -1,2 +1,2 @@
-# tbk6.2.3
-run: docker compose up
+# tbk6.2.2
+Running: `docker compose up`
